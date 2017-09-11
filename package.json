@@ -1,0 +1,11 @@
+{
+  "name": "design-patterns-in-typescript",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:Erichain/design-patterns-in-typescript.git",
+  "author": "Erichain",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-plugin-transform-class-properties": "^6.24.1"
+  }
+}
