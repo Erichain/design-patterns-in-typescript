@@ -48,7 +48,7 @@ class BookShelfIterator implements Iterator {
 		const currBook: Book = this.bookShelf.getBookAt(this.index);
 		this.index++;
 
-		return currBook;
+		// return currBook;
 	}
 
 	hasNext() {
