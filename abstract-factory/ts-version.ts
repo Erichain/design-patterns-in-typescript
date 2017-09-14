@@ -1,3 +1,4 @@
+// abstract Item
 abstract class Item {
   protected caption: string;
 
@@ -8,6 +9,7 @@ abstract class Item {
   abstract makeHtml(): string;
 }
 
+// abstract Link
 abstract class Link extends Item {
   protected url: string;
 
@@ -20,6 +22,7 @@ abstract class Link extends Item {
   abstract makeHtml(): string;
 }
 
+// abstract Tray
 abstract class Tray extends Item {
   protected trayList: Array<Item>;
   
@@ -30,28 +33,114 @@ abstract class Tray extends Item {
   abstract makeHtml(): string;
 }
 
+// abstract Page
 abstract class Page {
   protected title: string;
   protected author: string;
+  protected content: Array<Item>;
 
   constructor(title: string, author: string) {
     this.title = title;
     this.author = author;
   }
 
-  add(): void {}
+  add(item: Item): void {
+    this.content.push(item);
+  }
 
-  output(): void {}
+  output(): void {
+    const filename: string = `${this.title}.html`;
+    this.makeHtml();
+
+    console.log(`${this.title}.html has been written.`);
+  }
 
   abstract makeHtml(): string;
 }
 
+// abstract Factory
 abstract class Factory {
   static getFactory(className: any) {
     return new className();
   }
 
-  abstract createLink(): void;
-  abstract createTray(): void;
-  abstract createPage(): void;
+  abstract createLink(caption: string, url: string): ListLink;
+  abstract createTray(caption: string): ListTray;
+  abstract createPage(title: string, author: string): ListPage;
 }
+
+class ListLink extends Link {
+  constructor(caption: string, url: string) {
+    super(caption, url);
+  }
+
+  makeHtml(): string {
+    return `<li><a href="${this.url}">${this.caption}</a></li>`;
+  }
+}
+
+class ListTray extends Tray {
+  constructor(caption: string) {
+    super(caption);
+  }
+
+  makeHtml(): string {
+    const htmlArr: Array<string> = [];
+    htmlArr.unshift(`<li>${this.caption}<ul>`);
+
+    for (let item of this.trayList) {
+      htmlArr.unshift(item.makeHtml());
+    }
+
+    htmlArr.unshift('</ul></li>');
+
+    return htmlArr.join('');
+  }
+}
+
+class ListPage extends Page {
+  constructor(title: string, author: string) {
+    super(title, author);
+  }
+
+  makeHtml(): string {
+    const htmlArr: Array<string> = [];
+    htmlArr.unshift(`<title>${this.title}</title>`);
+    // join some other page string
+    for (let item of this.content) {
+      htmlArr.unshift(item.makeHtml());
+    }
+
+    return htmlArr.join('');
+  }
+}
+
+class ListFactory extends Factory {
+  createLink(caption: string, url: string): ListLink {
+    return new ListLink(caption, url);
+  }
+
+  createPage(title: string, author: string): ListPage {
+    return new ListPage(title, author);
+  }
+
+  createTray(caption: string): ListTray {
+    return new ListTray(caption);
+  }
+}
+
+// Main
+function createMainPage(pageClass: any) {
+  const factory: Factory = Factory.getFactory(pageClass);
+  const people: Link = factory.createLink('People', 'www.ssss.com');
+  const gmv: Link = factory.createLink('GMV','www.gmv.com');
+
+  const news: Tray = factory.createTray('News');
+  news.add(people);
+  news.add(gmv);
+
+  const page: Page = factory.createPage('title', 'abcd');
+  page.add(news);
+  page.output();
+}
+
