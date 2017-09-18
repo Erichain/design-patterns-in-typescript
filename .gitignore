@@ -32,3 +32,4 @@ typings/
 .env
 
 .idea/
+.DS_store
