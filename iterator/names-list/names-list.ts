@@ -53,9 +53,10 @@ class ConcreteNamesIterator implements NamesIterator {
 }
 
   const namesList: ConcreteNamesList = new ConcreteNamesList();
+
   namesList.add('a');
   namesList.add('b');
-  namesList.add('');
+  namesList.add('c');
 
   const it: ConcreteNamesIterator = namesList.iterator();
 
