@@ -27,7 +27,7 @@ namespace NamesListIterator {
       return this.namesList.length;
     }
 
-    iterator(): ConcreteNamesIterator {
+    iterator(): NamesIterator {
       return new ConcreteNamesIterator(this);
     }
   }
@@ -58,7 +58,7 @@ class ConcreteNamesIterator implements NamesIterator {
   namesList.add('b');
   namesList.add('c');
 
-  const it: ConcreteNamesIterator = namesList.iterator();
+  const it: NamesIterator = namesList.iterator();
 
   while (it.hasNext()) {
     it.next();

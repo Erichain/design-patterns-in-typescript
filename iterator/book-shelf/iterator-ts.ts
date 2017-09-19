@@ -1,7 +1,7 @@
 namespace BooksIterator {
   // Interface Aggregate
   interface Aggregate {
-    iterator(): BookShelfIterator;
+    iterator(): Iterator;
   }
 
 // Interface Iterator
