@@ -32,25 +32,25 @@ namespace NamesListIterator {
     }
   }
 
-class ConcreteNamesIterator implements NamesIterator {
-  private namesList: ConcreteNamesList;
-  private currentIndex: number = 0;
+  class ConcreteNamesIterator implements NamesIterator {
+    private namesList: ConcreteNamesList;
+    private currentIndex: number = 0;
 
-  constructor(namesList: ConcreteNamesList) {
-    this.namesList = namesList;
+    constructor(namesList: ConcreteNamesList) {
+      this.namesList = namesList;
+    }
+
+    hasNext(): boolean {
+      return this.currentIndex < this.namesList.getLength();
+    }
+
+    next(): string {
+      const currentName: string = this.namesList.getNameByIndex(this.currentIndex);
+      this.currentIndex++;
+
+      return currentName;
+    }
   }
-
-  hasNext(): boolean {
-    return this.currentIndex < this.namesList.getLength();
-  }
-
-  next(): string {
-    const currentName: string = this.namesList.getNameByIndex(this.currentIndex);
-    this.currentIndex++;
-
-    return currentName;
-  }
-}
 
   const namesList: ConcreteNamesList = new ConcreteNamesList();
 
