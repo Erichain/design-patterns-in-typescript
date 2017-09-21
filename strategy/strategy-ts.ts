@@ -87,7 +87,7 @@ class ProbStrategy implements Strategy {
   getSum(handValue: number): number {
     let sum: number = 0;
 
-    for (let i = 0; i < 3; i++) {
+    for (let i: number = 0; i < 3; i++) {
       sum += this.history[handValue][i];
     }
 
@@ -109,10 +109,29 @@ class Player {
   nextHand(): Hand {
     return this.strategy.nextHand();
   }
-  
+
   win(): void {}
 
   lose(): void {}
 
   even(): void {}
+}
+
+const player1: Player = new Player('a', new WinningStrategy(0, 3));
+const player2: Player = new Player('b', new WinningStrategy(0, 3));
+
+for (let i: number = 0; i < 10000; i++) {
+  const p1Hand: Hand = player1.nextHand();
+  const p2Hand: Hand = player2.nextHand();
+
+  if (p1Hand.isStrongerThan(p2Hand)) {
+    player1.win();
+    player2.lose();
+  } else if (p1Hand.isWeakerThan(p2Hand)) {
+    player2.win();
+    player1.lose();
+  } else {
+    player1.even();
+    player2.even();
+  }
 }
