@@ -1,9 +1,9 @@
 interface VehicleStrategy {
-  calculate(distance: number, isJammed: boolean): object;
+  setOff(): object;
 }
 
 class Car implements VehicleStrategy {
-  calculate(distance: number, isJammed: boolean): object {
+  setOff(): object {
     const speed: number = 60;
 
     return {};
@@ -11,7 +11,7 @@ class Car implements VehicleStrategy {
 }
 
 class Subway implements VehicleStrategy {
-  calculate(distance: number, isJammed: boolean): object {
+  setOff(): object {
     const speed: number = 100;
 
     return {};
@@ -21,5 +21,17 @@ class Subway implements VehicleStrategy {
 class Traveler {
   private vehicle: VehicleStrategy;
 
-  setOff(): void {}
+  constructor(vehicle: VehicleStrategy) {
+    this.vehicle = vehicle;
+  }
+
+  setOff(): object {
+    return this.vehicle.setOff();
+  }
 }
+
+const carTravler: Traveler = new Traveler(new Car());
+const subwayTraveler: Traveler = new Traveler(new Subway());
+carTravler.setOff();
+subwayTraveler.setOff();
+
