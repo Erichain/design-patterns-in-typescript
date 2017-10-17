@@ -36,6 +36,22 @@ class PrintBanner extends Banner implements Print {
   }
 }
 
+/*class PrintBanner implements Print {
+  private banner: Banner;
+
+  constructor(banner: Banner) {
+    this.banner = banner;
+  }
+
+  printWeak(): string {
+    return this.banner.printWithParen();
+  }
+
+  printStrong(): string {
+    return this.banner.printWithParen();
+  }
+}*/
+
 // Client
 const pb: PrintBanner = new PrintBanner('12V');
 pb.printStrong();
