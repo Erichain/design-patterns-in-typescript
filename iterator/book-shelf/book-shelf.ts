@@ -1,16 +1,14 @@
 namespace BooksIterator {
-  // Interface Aggregate
   interface Aggregate {
     iterator(): Iterator;
   }
 
-// Interface Iterator
   interface Iterator {
     next(): Book;
     hasNext(): boolean;
   }
 
-// concrete aggregate
+  // concrete aggregate
   class BookShelf implements Aggregate {
     private books: Array<Book>;
     private maxLength: number;
@@ -36,7 +34,7 @@ namespace BooksIterator {
     }
   }
 
-// concrete iterator
+  // concrete iterator
   class BookShelfIterator implements Iterator {
     private bookShelf: BookShelf;
     private index: number;
@@ -69,7 +67,7 @@ namespace BooksIterator {
     }
   }
 
-// main example
+  // main example
   const bookshelf: BookShelf = new BookShelf(10);
 
   bookshelf.appendBook(new Book('a'));
