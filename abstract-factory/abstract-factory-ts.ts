@@ -1,3 +1,61 @@
+abstract class MazeFactory {
+  abstract createMaze(): void;
+}
+
+class CreateMazeA extends MazeFactory {
+  static mazeFactory: MazeFactory = null;
+
+  static getFactory(): MazeFactory {
+    if (!this.mazeFactory) {
+      this.mazeFactory = new CreateMazeA();
+    }
+
+    return this.mazeFactory;
+  }
+
+  createMaze(): Maze {
+    return new MazeA();
+  }
+}
+
+class CreateMazeB extends MazeFactory {
+  static mazeFactory: MazeFactory = null;
+
+  static getFactory(): MazeFactory {
+    if (!this.mazeFactory) {
+      this.mazeFactory = new CreateMazeA();
+    }
+
+    return this.mazeFactory;
+  }
+
+  createMaze(): Maze {
+    return new MazeB();
+  }
+}
+
+abstract class Maze {
+  abstract setWall(): void;
+  abstract setDoor(): void;
+}
+
+class MazeA extends Maze {
+  setWall(): void {}
+
+  setDoor(): void {}
+}
+
+class MazeB extends Maze {
+  setWall(): void {}
+
+  setDoor(): void {}
+}
+
+const mazeFactoryA: MazeFactory = CreateMazeA.getFactory();
+mazeFactoryA.createMaze();
+
+////////////////////////////////////////////////////////////////////////////////
+
 // abstract Item
 abstract class Item {
   protected caption: string;
