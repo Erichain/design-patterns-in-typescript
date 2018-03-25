@@ -1,8 +1,10 @@
 // Creator class
 abstract class Creator {
-  create(owner: string) {
+  create(owner: string): Product {
     const product: ConcreteProduct = this.createProduct(owner);
     this.registerProduct(product);
+
+    return product;
   }
 
   abstract createProduct(owner: string): ConcreteProduct;
@@ -54,8 +56,8 @@ class ConcreteProduct extends Product {
 }
 
 const productFactory = new ConcreteCreator();
-const card1: ConcreteProduct = productFactory.create('a');
-const card2: ConcreteProduct = productFactory.create('b');
+const card1: Product = productFactory.create('a');
+const card2: Product = productFactory.create('b');
 
 card1.use();
 card2.use();
