@@ -1,13 +1,13 @@
 abstract class MazeFactory {
-  abstract createMaze(): void;
+  abstract createMaze(): Maze;
 }
 
-class CreateMazeA extends MazeFactory {
+class MazeAFactory extends MazeFactory {
   static mazeFactory: MazeFactory = null;
 
   static getFactory(): MazeFactory {
     if (!this.mazeFactory) {
-      this.mazeFactory = new CreateMazeA();
+      this.mazeFactory = new MazeAFactory();
     }
 
     return this.mazeFactory;
@@ -18,12 +18,12 @@ class CreateMazeA extends MazeFactory {
   }
 }
 
-class CreateMazeB extends MazeFactory {
+class MazeBFactory extends MazeFactory {
   static mazeFactory: MazeFactory = null;
 
   static getFactory(): MazeFactory {
     if (!this.mazeFactory) {
-      this.mazeFactory = new CreateMazeA();
+      this.mazeFactory = new MazeBFactory();
     }
 
     return this.mazeFactory;
@@ -31,6 +31,18 @@ class CreateMazeB extends MazeFactory {
 
   createMaze(): Maze {
     return new MazeB();
+  }
+}
+
+class CreateMaze {
+  private factory: MazeFactory = null;
+
+  constructor(factory: MazeFactory) {
+    this.factory = factory;
+  }
+
+  createMaze(): Maze {
+    return this.factory.createMaze();
   }
 }
 
@@ -51,8 +63,8 @@ class MazeB extends Maze {
   setDoor(): void {}
 }
 
-const mazeFactoryA: MazeFactory = CreateMazeA.getFactory();
-mazeFactoryA.createMaze();
+const createMaze: CreateMaze = new CreateMaze(new MazeAFactory());
+createMaze.createMaze();
 
 ////////////////////////////////////////////////////////////////////////////////
 
